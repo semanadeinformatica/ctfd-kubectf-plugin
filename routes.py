@@ -30,8 +30,8 @@ def register_app(app):
 @blueprint.route('/api/kube_ctf/<challenge>', methods=['GET', 'POST'])
 @bypass_csrf_protection
 @during_ctf_time_only
-@ratelimit(method='GET', limit=15, interval=60, key_type='user', key_prefix='rl_kctfget')
-@ratelimit(method='POST', limit=4, interval=60, key_type='user', key_prefix='rl_kctfpost')
+@ratelimit(method='GET', limit=15, interval=60, key_prefix='rl_kctfget')
+@ratelimit(method='POST', limit=4, interval=60, key_prefix='rl_kctfpost')
 def get_challenge(challenge):
     session = get_current_user()
 
@@ -56,6 +56,7 @@ def get_challenge(challenge):
         if request.method == 'GET':
             return get_deployment(host, secret, owner_id, False, challenge)
         elif request.method == 'POST' and request.is_json:
+
             if request.json.get('action') == 'create':
                 return create_deployment(host, secret, owner_id, False, challenge)
             elif request.json.get('action') == 'extend':

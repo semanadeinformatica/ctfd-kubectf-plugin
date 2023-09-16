@@ -27,14 +27,15 @@ class KubeChallenge(Challenges):
         super(KubeChallenge, self).__init__(**kwargs)
         self.template_name = kwargs["template_name"]
         self.value = kwargs["initial"]
+        self.connection_info = True
 
 
 class KubeChallengeType(DynamicValueChallenge):
     id = "kubectf"  # Unique identifier used to register challenges
     name = "kubectf"  # Name of a challenge type
     templates = {  # Templates used for each aspect of challenge editing & viewing
-        "create": f"/plugins/{PLUGIN_FOLDER_NAME}/templates/create.html",
-        "update": f"/plugins/{PLUGIN_FOLDER_NAME}/templates/update.html",
+        "create": f"/plugins/{PLUGIN_FOLDER_NAME}/assets/create.html",
+        "update": f"/plugins/{PLUGIN_FOLDER_NAME}/assets/update.html",
         "view": f"/plugins/{PLUGIN_FOLDER_NAME}/assets/view.html",
     }
     scripts = {  # Scripts that are loaded when a template is loaded
